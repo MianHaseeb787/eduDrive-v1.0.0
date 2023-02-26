@@ -10,28 +10,24 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Container(
-        color: Colors.grey[200],
-        child: ValueListenableBuilder<User?>(
-          valueListenable: UserRepository.instance.userNotifier,
-          builder: (context, value, child) {
-            if (value != null) {
-              return Builder(
-                builder: (context) {
-                  if (value.isVerified) {
-                    return MapViewWidget();
-                  } else {
-                    return AuthPageWidget(page: 2, uid: value.uid);
-                  }
-                },
-              );
-            }
-            else {
-              return AuthPageWidget(page: 0);
-            }
-          },
-        ),
+      resizeToAvoidBottomInset: true,
+      body: ValueListenableBuilder<User?>(
+        valueListenable: UserRepository.instance!.userNotifier,
+        builder: (context, value, child) {
+          if (value != null) {
+            return Builder(
+              builder: (context) {
+                if (!value.isVerified!) {
+                  return AuthPage(page: 2, uid: value.uid);
+                } else {
+                  return MapView();
+                }
+              },
+            );
+          } else {
+            return AuthPage();
+          }
+        },
       ),
     );
   }
