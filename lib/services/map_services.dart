@@ -99,8 +99,13 @@ class MapService {
     if (check) {
       print('started location');
 
+      const settings = LocationSettings(
+        accuracy: LocationAccuracy.best,
+        distanceFilter: 0,
+      );
+
       positionStream =
-          Geolocator.getPositionStream(desiredAccuracy: LocationAccuracy.high, timeLimit: Duration(seconds: 60))
+          Geolocator.getPositionStream(locationSettings: settings)
               .listen((position) async {
         eventFiring(currentPosition.value);
 

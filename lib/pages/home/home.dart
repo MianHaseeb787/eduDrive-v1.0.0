@@ -26,7 +26,8 @@ class HomePage extends StatelessWidget {
                   }
                 },
               );
-            } else {
+            }
+            else {
               return AuthPageWidget(page: 0);
             }
           },
